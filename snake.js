@@ -1,4 +1,3 @@
-
 //board
 let blockSize = 25;
 let rows = 20;
@@ -21,7 +20,7 @@ let foodY;
 
 let gameOver = false;
 
-window.onload = function() {
+window.onload = function () {
     board = document.getElementById("board");
     board.height = rows * blockSize;
     board.width = cols * blockSize;
@@ -30,7 +29,7 @@ window.onload = function() {
     placeFood();
     document.addEventListener("keyup", changeDirection);
     // update();
-    setInterval(update, 1000/10); //100 milliseconds
+    setInterval(update, 100); //100 milliseconds
 }
 
 function update() {
@@ -38,10 +37,10 @@ function update() {
         return;
     }
 
-    context.fillStyle="black";
+    context.fillStyle = "black";
     context.fillRect(0, 0, board.width, board.height);
 
-    context.fillStyle="red";
+    context.fillStyle = "red";
     context.fillRect(foodX, foodY, blockSize, blockSize);
 
     if (snakeX === foodX && snakeY === foodY) {
@@ -49,14 +48,14 @@ function update() {
         placeFood();
     }
 
-    for (let i = snakeBody.length-1; i > 0; i--) {
-        snakeBody[i] = snakeBody[i-1];
+    for (let i = snakeBody.length - 1; i > 0; i--) {
+        snakeBody[i] = snakeBody[i - 1];
     }
     if (snakeBody.length) {
         snakeBody[0] = [snakeX, snakeY];
     }
 
-    context.fillStyle="lime";
+    context.fillStyle = "lime";
     snakeX += velocityX * blockSize;
     snakeY += velocityY * blockSize;
     context.fillRect(snakeX, snakeY, blockSize, blockSize);
@@ -65,7 +64,7 @@ function update() {
     }
 
     //game over conditions
-    if (snakeX < 0 || snakeX > cols*blockSize || snakeY < 0 || snakeY > rows*blockSize) {
+    if (snakeX < 0 || snakeX > cols * blockSize || snakeY < 0 || snakeY > rows * blockSize) {
         gameOver = true;
         alert("Game Over");
     }
@@ -82,16 +81,13 @@ function changeDirection(e) {
     if (e.code === "ArrowUp" && velocityY !== 1) {
         velocityX = 0;
         velocityY = -1;
-    }
-    else if (e.code === "ArrowDown" && velocityY !== -1) {
+    } else if (e.code === "ArrowDown" && velocityY !== -1) {
         velocityX = 0;
         velocityY = 1;
-    }
-    else if (e.code === "ArrowLeft" && velocityX !== 1) {
+    } else if (e.code === "ArrowLeft" && velocityX !== 1) {
         velocityX = -1;
         velocityY = 0;
-    }
-    else if (e.code === "ArrowRight" && velocityX !== -1) {
+    } else if (e.code === "ArrowRight" && velocityX !== -1) {
         velocityX = 1;
         velocityY = 0;
     }
@@ -103,3 +99,4 @@ function placeFood() {
     foodX = Math.floor(Math.random() * cols) * blockSize;
     foodY = Math.floor(Math.random() * rows) * blockSize;
 }
+
